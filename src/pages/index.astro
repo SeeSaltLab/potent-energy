@@ -15,13 +15,19 @@
 
     <script>
       import { mountOpenWater } from '../lib/openWater.js';
-      import { createControlPanel } from '../lib/controlPanel.js';
       import { bindScrollCamera } from '../lib/scrollCamera.js';
       import { createFlyCamera } from '../lib/flyCamera.js';
       const canvas = document.getElementById('ocean');
       mountOpenWater(canvas)
-        .then((scene) => {
-          createControlPanel(scene);
+        .then(async (scene) => {
+          // Dev-only tuning panel. Dynamic import (not a static one) because tweakpane has no
+          // sideEffects:false, so Rollup can't prove it's safe to drop from a dead branch --
+          // this way the import call itself never executes (and its chunk never even builds)
+          // once import.meta.env.DEV is statically false in production.
+          if (import.meta.env.DEV) {
+            const { createControlPanel } = await import('../lib/controlPanel.js');
+            createControlPanel(scene);
+          }
           bindScrollCamera(scene.view, scene.carrier);
           createFlyCamera(scene.app, scene.camera, canvas);
         })
