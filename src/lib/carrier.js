@@ -7,7 +7,7 @@ import { Asset, BoundingBox, Entity, Quat, Vec3 } from 'playcanvas';
 // The GLB is authored at ~29.3 x 7.9 x 5.0 units (bow-stern axis = local X). CARRIER.scale
 // maps that to a real-world ~290m hull. Tune by eye; dev server hot-reloads this file.
 export const CARRIER = {
-    url: '/models/PotentEnergy_LNG_Carrier.glb',
+    url: `${import.meta.env.BASE_URL}models/PotentEnergy_LNG_Carrier.glb`,
     position: [-225, -430], // world X, Z (metres). Y comes from the waves. Camera looks down -Z.
     heading: 173,           // degrees; yaw around Y from the model's authored forward (local +X)
     scale: 9.3,             // authored units -> metres (290m target length / 29.3 authored length)
