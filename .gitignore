@@ -2,6 +2,8 @@
 dist/
 # generated types
 .astro/
+# tool-generated, regenerate with /graphify
+graphify-out/
 
 # dependencies
 node_modules/
@@ -22,3 +24,14 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Claude Code tooling (local dev config, not part of the site)
+.claude/
+.agents/
+.mcp.json
+CLAUDE.md
+skills-lock.json
+
+# planning docs (internal, not part of the site)
+energy-site-plan.md
+Potent_Energy_Astro_ThreeJS_Architecture.md

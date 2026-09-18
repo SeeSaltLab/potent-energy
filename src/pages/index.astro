@@ -1,17 +1,48 @@
 ---
-
+// Potent — landing page. Phase 1: full-viewport "open water" hero, no DOM text yet.
 ---
-
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Potent</title>
+  </head>
+  <body>
+    <canvas id="ocean"></canvas>
+    <div id="scroll-space" aria-hidden="true"></div>
+    <pre id="err"></pre>
+
+    <script>
+      import { mountOpenWater } from '../lib/openWater.js';
+      import { createControlPanel } from '../lib/controlPanel.js';
+      import { bindScrollCamera } from '../lib/scrollCamera.js';
+      import { createFlyCamera } from '../lib/flyCamera.js';
+      const canvas = document.getElementById('ocean');
+      mountOpenWater(canvas)
+        .then((scene) => {
+          createControlPanel(scene);
+          bindScrollCamera(scene.view, scene.carrier);
+          createFlyCamera(scene.app, scene.camera, canvas);
+        })
+        .catch((err) => {
+          console.error(err);
+          const box = document.getElementById('err');
+          box.style.display = 'block';
+          box.textContent = err && (err.stack || err.message || String(err));
+        });
+    </script>
+
+    <style is:global>
+      html, body { margin: 0; background: #04070d; }
+      #ocean { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+      /* No DOM hero content yet — this is scroll length for scrollCamera.js to scrub against. */
+      #scroll-space { height: 300vh; }
+      #err {
+        position: fixed; left: 12px; top: 12px; max-width: 92vw; margin: 0;
+        color: #ff6b6b; font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+        white-space: pre-wrap; display: none; z-index: 10;
+      }
+    </style>
+  </body>
 </html>

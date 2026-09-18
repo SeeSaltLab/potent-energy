@@ -12,7 +12,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.3.2"
+    "@theatre/core": "^0.7.2",
+    "@theatre/studio": "^0.7.2",
+    "astro": "^7.3.2",
+    "gsap": "^3.15.0",
+    "playcanvas": "^2.22.2",
+    "tweakpane": "^4.0.5"
   },
   "allowScripts": {
     "esbuild": true
